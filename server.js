@@ -43,3 +43,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
 });
+const path = require('path');
+
+// السماح بعرض ملفات HTML ثابتة
+app.use(express.static(path.join(__dirname, '/')));
+
+// صفحة البداية
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'lab.html'));
+});
