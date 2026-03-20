@@ -1,3 +1,8 @@
+const express = require('express');
+const cors = require('cors');
+const db = require('./db');
+
+const app = express(); //
 // إضافة
 app.post('/add', (req, res) => {
     const { amount, type, date, note } = req.body;
