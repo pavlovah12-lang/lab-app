@@ -127,6 +127,9 @@ th {
 <div class="pagination" id="pagination"></div>
 
 <script>
+// رابط السيرفر الجديد
+const API_URL = "https://lab-app-7.onrender.com";
+
 let currentPage = 1;
 const itemsPerPage = 10;
 
@@ -143,7 +146,7 @@ function saveExpense() {
         return;
     }
 
-    let url = editId ? `http://localhost:3000/edit/${editId}` : "http://localhost:3000/add";
+    let url = editId ? `${API_URL}/edit/${editId}` : `${API_URL}/add`;
     let method = editId ? "PUT" : "POST";
 
     fetch(url, {
@@ -163,7 +166,7 @@ function saveExpense() {
 function loadData(page = 1) {
     let filterType = document.getElementById("filterType").value;
 
-    fetch("http://localhost:3000/all")
+    fetch(`${API_URL}/all`)
     .then(res => res.json())
     .then(data => {
         if (filterType) data = data.filter(e => e.type === filterType);
@@ -201,7 +204,7 @@ function loadData(page = 1) {
 
 // تعديل
 function editExpense(id) {
-    fetch(`http://localhost:3000/all`)
+    fetch(`${API_URL}/all`)
     .then(res => res.json())
     .then(data => {
         const e = data.find(x => x.id === id);
@@ -215,7 +218,7 @@ function editExpense(id) {
 
 // حذف
 function deleteExpense(id) {
-    fetch(`http://localhost:3000/delete/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/delete/${id}`, { method: "DELETE" })
     .then(() => loadData(currentPage));
 }
 
