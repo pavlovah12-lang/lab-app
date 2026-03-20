@@ -2,7 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 
-const app = express(); //
+const app = express();
+
+// 🔥 مهم جدًا
+app.use(cors());
+app.use(express.json());
+
 // إضافة
 app.post('/add', (req, res) => {
     const { amount, type, date, note } = req.body;
@@ -31,4 +36,10 @@ app.put('/edit/:id', (req, res) => {
         UPDATE expenses SET amount=?, type=?, date=?, note=? WHERE id=?
     `).run(amount, type, date, note, req.params.id);
     res.send("OK");
+});
+
+// 🔥 تشغيل السيرفر
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
 });
